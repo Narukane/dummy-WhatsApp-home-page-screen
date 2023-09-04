@@ -89,12 +89,17 @@ const ChatRoom: React.FC<ChatRoomProps> = ({navigation}) => {
       const colors: {[phoneNumber: string]: string} = {};
       for (const userData of data.users) {
         const existingColor = userColors[userData.phone_number];
-        colors[userData.phone_number] = existingColor || getRandomHexColor();
+        if (!existingColor) {
+          colors[userData.phone_number] = getRandomHexColor();
+        }
       }
-      setUserColors(prevUserColors => ({
-        ...prevUserColors,
-        ...colors,
-      }));
+
+      if (Object.keys(colors).length > 0) {
+        setUserColors(prevUserColors => ({
+          ...prevUserColors,
+          ...colors,
+        }));
+      }
     }
   }, [group, data, userColors]);
 

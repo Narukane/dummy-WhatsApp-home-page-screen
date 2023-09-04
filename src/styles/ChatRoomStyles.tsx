@@ -76,6 +76,7 @@ export const ChatRoomStyle = StyleSheet.create({
     width: '85%',
     margin: 5,
     height: imageSize,
+    color: colors.messageColor,
   },
   sendButtonStyle: {
     borderRadius: imageSize / 2,
