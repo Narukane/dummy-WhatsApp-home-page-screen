@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {formatDateString} from '../options/dateUtils';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-
+import {placeholderTextColor} from '../options/inputText';
 interface HomeProps {
   navigation: NavigationProp<ParamListBase>;
 }
@@ -87,8 +87,14 @@ const HomeTab: React.FC<HomeProps> = ({navigation}) => {
                     <Text style={HeaderStyle.dateStyle}>{date}</Text>
                   </View>
                   <View style={HeaderStyle.subItemStyle}>
-                    {dataItem.group && <Text>{message.from.name}: </Text>}
-                    <Text>{message.msg}</Text>
+                    {dataItem.group && (
+                      <Text style={HeaderStyle.textlabelStyle}>
+                        {message.from.name}:{' '}
+                      </Text>
+                    )}
+                    <Text style={HeaderStyle.textlabelStyle}>
+                      {message.msg}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               );
@@ -107,15 +113,15 @@ const HomeTab: React.FC<HomeProps> = ({navigation}) => {
           <Text style={HeaderStyle.labelStyle}>WhatsApp</Text>
           <View style={HeaderStyle.iconContainerStyle}>
             <TouchableOpacity style={HeaderStyle.iconStyle}>
-              <Icon name="camera-outline" size={18} color={'#fff'} />
+              <Icon name="camera-outline" size={25} color={'#fff'} />
             </TouchableOpacity>
             <TouchableOpacity
               style={HeaderStyle.iconStyle}
               onPress={() => onPressSearch(true)}>
-              <MaterialIcon name="search" size={18} color={'#fff'} />
+              <MaterialIcon name="search" size={25} color={'#fff'} />
             </TouchableOpacity>
             <TouchableOpacity style={HeaderStyle.iconStyle}>
-              <Icon name="dots-vertical" size={18} color={'#fff'} />
+              <Icon name="dots-vertical" size={25} color={'#fff'} />
             </TouchableOpacity>
           </View>
         </View>
@@ -129,7 +135,9 @@ const HomeTab: React.FC<HomeProps> = ({navigation}) => {
               <MaterialIcon name="arrow-back" size={18} color={'#000'} />
             </TouchableOpacity>
             <TextInput
+              style={HeaderStyle.inputTextStyle}
               placeholder="Search..."
+              placeholderTextColor={placeholderTextColor}
               value={searchQuery}
               onChangeText={text => setSearchQuery(text)}
             />

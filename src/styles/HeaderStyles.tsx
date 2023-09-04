@@ -6,10 +6,11 @@ const screenWidth = Dimensions.get('window').width;
 export const HeaderStyle = StyleSheet.create({
   containerStyle: {
     width: screenWidth,
+    height: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 20,
     backgroundColor: colors.primaryColor,
   },
   labelStyle: {
@@ -58,5 +59,13 @@ export const HeaderStyle = StyleSheet.create({
   },
   dateStyle: {
     fontSize: 10,
+    color: colors.textColor,
+  },
+  inputTextStyle: {
+    width: '100%',
+    color: colors.messageColor,
+  },
+  textlabelStyle: {
+    color: colors.textColor,
   },
 });

@@ -6,10 +6,10 @@ const imageSize = screenWidth * 0.1;
 
 export const ChatRoomStyle = StyleSheet.create({
   headingStyle: {
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: colors.primaryColor,
     flexDirection: 'row',
-    minHeight: imageSize,
     alignItems: 'center',
   },
   headingLabelStyle: {
@@ -65,6 +65,7 @@ export const ChatRoomStyle = StyleSheet.create({
     fontSize: 10,
     marginBottom: -5,
     marginTop: 2,
+    color: colors.textColor,
   },
   sendContainerStyle: {
     flexDirection: 'row',
@@ -105,5 +106,11 @@ export const ChatRoomStyle = StyleSheet.create({
   },
   emojiContainerStyle: {
     marginBottom: 15,
+  },
+  headingContainerStyle: {
+    marginVertical: 10,
+    width: screenWidth,
+    justifyContent: 'center',
+    height: imageSize,
   },
 });

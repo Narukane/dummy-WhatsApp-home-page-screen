@@ -29,4 +29,7 @@ export const PersonalDetailStyle = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.messageColor,
   },
+  labelStyle: {
+    color: colors.textColor,
+  },
 });

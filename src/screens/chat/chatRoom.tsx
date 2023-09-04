@@ -8,6 +8,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ReactionProvider, Reaction} from 'react-native-reactions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import {placeholderTextColor} from '../../options/inputText';
 
 interface ChatRoomProps {
   navigation: NavigationProp<ParamListBase>;
@@ -197,27 +198,31 @@ const ChatRoom: React.FC<ChatRoomProps> = ({navigation}) => {
             style={ChatRoomStyle.buttonBackStyle}>
             <Icon name="arrow-back" size={16} color={'#fff'} />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(group ? 'Group' : 'Personal', {data})
-            }
-            style={ChatRoomStyle.headingButtonStyle}>
+
+          <View style={ChatRoomStyle.headingButtonStyle}>
             <Image
               source={
                 data?.group === true
                   ? data?.group_pic
                     ? {uri: data?.group_pic}
                     : require('../../assets/group.png')
-                  : data?.users.profile_pic
-                  ? {uri: data?.users.profile_pic}
+                  : data?.users?.profile_pic
+                  ? {uri: data?.users?.profile_pic}
                   : require('../../assets/personal.png')
               }
               style={ChatRoomStyle.imagesItemStyle}
             />
-            <Text style={ChatRoomStyle.headingLabelStyle}>
-              {data?.group === true ? data.group_name : data.users.name}
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(group ? 'Group' : 'Personal', {data})
+              }>
+              <View style={ChatRoomStyle.headingContainerStyle}>
+                <Text style={ChatRoomStyle.headingLabelStyle}>
+                  {data?.group === true ? data.group_name : data.users.name}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={ChatRoomStyle.containerStyle}>
           <FlatList
@@ -237,6 +242,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({navigation}) => {
               style={ChatRoomStyle.inputStyle}
               value={text}
               onChangeText={onChangeText}
+              placeholderTextColor={placeholderTextColor}
               placeholder="Type Here"
               multiline={true}
             />

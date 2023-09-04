@@ -6,6 +6,8 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import {apiGet} from '../../api/api';
 import * as endPoint from '../../api/endPoint';
@@ -29,8 +31,14 @@ const user: UserType = {
 
 const ChatList: React.FC<ChatListProps> = ({navigation}) => {
   const [data, setData] = useState<any[] | null>(null);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
     apiGet<any[]>(endPoint.CHAT_ROOM)
       .then(response => {
         if (Array.isArray(response)) {
@@ -41,8 +49,17 @@ const ChatList: React.FC<ChatListProps> = ({navigation}) => {
       })
       .catch(error => {
         console.error('Error:', error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, []);
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadData();
+    setRefreshing(false);
+  };
 
   const lastMessages = (arr: any) => {
     if (arr.length > 0) {
@@ -118,11 +135,21 @@ const ChatList: React.FC<ChatListProps> = ({navigation}) => {
 
   return (
     <SafeAreaView style={ChatListStyle.containerStyle}>
-      <FlatList
-        data={data}
-        keyExtractor={item => item.room_id}
-        renderItem={({item}) => <Item dataItem={item} />}
-      />
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          style={ChatListStyle.loadingIndicator}
+        />
+      ) : (
+        <FlatList
+          data={data}
+          keyExtractor={item => item.room_id}
+          renderItem={({item}) => <Item dataItem={item} />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      )}
     </SafeAreaView>
   );
 };

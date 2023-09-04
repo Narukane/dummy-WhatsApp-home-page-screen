@@ -29,7 +29,9 @@ const PersonalDetail: React.FC = () => {
         </View>
         <View style={PersonalDetailStyle.contactStyle}>
           <Text style={PersonalDetailStyle.nameStyle}>{data.users.name}</Text>
-          <Text>{data.users.phone_number}</Text>
+          <Text style={PersonalDetailStyle.labelStyle}>
+            {data.users.phone_number}
+          </Text>
         </View>
       </View>
     </View>

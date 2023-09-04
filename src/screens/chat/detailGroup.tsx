@@ -30,7 +30,9 @@ const GroupDetail: React.FC = () => {
         </View>
         <View style={GroupDetailStyle.contactStyle}>
           <Text style={GroupDetailStyle.nameStyle}>{data.group_name}</Text>
-          <Text>Group {data.users.length} participants</Text>
+          <Text style={GroupDetailStyle.labelStyle}>
+            Group {data.users.length} participants
+          </Text>
         </View>
       </View>
     </View>

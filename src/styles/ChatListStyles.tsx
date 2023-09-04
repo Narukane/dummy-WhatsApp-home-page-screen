@@ -43,4 +43,9 @@ export const ChatListStyle = StyleSheet.create({
     width: imageSize,
     height: imageSize,
   },
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
