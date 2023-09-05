@@ -16,7 +16,7 @@ const GroupDetail: React.FC = () => {
       <View style={GroupDetailStyle.headerStyle}>
         <View style={GroupDetailStyle.subHeadStyle}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" size={16} color={'#000'} />
+            <Icon name="arrow-back" size={20} color={'#000'} />
           </TouchableOpacity>
           <Image
             source={
@@ -26,7 +26,7 @@ const GroupDetail: React.FC = () => {
             }
             style={GroupDetailStyle.imagesItemStyle}
           />
-          <MaterialIcon name="dots-vertical" size={16} color={'#000'} />
+          <MaterialIcon name="dots-vertical" size={20} color={'#000'} />
         </View>
         <View style={GroupDetailStyle.contactStyle}>
           <Text style={GroupDetailStyle.nameStyle}>{data.group_name}</Text>

@@ -15,7 +15,7 @@ const PersonalDetail: React.FC = () => {
       <View style={PersonalDetailStyle.headerStyle}>
         <View style={PersonalDetailStyle.subHeadStyle}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" size={16} color={'#000'} />
+            <Icon name="arrow-back" size={20} color={'#000'} />
           </TouchableOpacity>
           <Image
             source={
@@ -25,7 +25,7 @@ const PersonalDetail: React.FC = () => {
             }
             style={PersonalDetailStyle.imagesItemStyle}
           />
-          <MaterialIcon name="dots-vertical" size={16} color={'#000'} />
+          <MaterialIcon name="dots-vertical" size={20} color={'#000'} />
         </View>
         <View style={PersonalDetailStyle.contactStyle}>
           <Text style={PersonalDetailStyle.nameStyle}>{data.users.name}</Text>

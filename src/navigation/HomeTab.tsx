@@ -10,9 +10,9 @@ import * as endPoint from '../api/endPoint';
 import {HeaderStyle} from '../styles/HeaderStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import {formatDateString} from '../options/dateUtils';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {placeholderTextColor} from '../options/inputText';
+import HomeItem from '../components/HomeItem';
 interface HomeProps {
   navigation: NavigationProp<ParamListBase>;
 }
@@ -56,56 +56,6 @@ const HomeTab: React.FC<HomeProps> = ({navigation}) => {
       )
     : [];
 
-  type ItemProps = {dataItem: any; index: number; searchText: string};
-  const Item = ({dataItem, index, searchText}: ItemProps) => {
-    return (
-      <>
-        {index === 0 && <Text>Messages</Text>}
-        <View style={HeaderStyle.itemContainerStyle}>
-          {dataItem.messages.map((message: any) => {
-            const date = formatDateString(message.timestamp);
-            if (message.msg.toLowerCase().includes(searchText.toLowerCase())) {
-              return (
-                <TouchableOpacity
-                  key={message.id}
-                  style={HeaderStyle.buttonStyle}
-                  onPress={() =>
-                    navigation.navigate('ChatRoom', {
-                      data: data,
-                      user: user,
-                      group: dataItem?.group ? true : false,
-                    })
-                  }>
-                  <View style={HeaderStyle.itemHeadStyle}>
-                    <Text style={HeaderStyle.itemLabelStyle}>
-                      {dataItem.group
-                        ? dataItem.group_name
-                        : message.from.name !== user.name
-                        ? message.from.name
-                        : 'You'}
-                    </Text>
-                    <Text style={HeaderStyle.dateStyle}>{date}</Text>
-                  </View>
-                  <View style={HeaderStyle.subItemStyle}>
-                    {dataItem.group && (
-                      <Text style={HeaderStyle.textlabelStyle}>
-                        {message.from.name}:{' '}
-                      </Text>
-                    )}
-                    <Text style={HeaderStyle.textlabelStyle}>
-                      {message.msg}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            }
-            return null;
-          })}
-        </View>
-      </>
-    );
-  };
-
   return (
     <>
       {!search && (
@@ -147,7 +97,13 @@ const HomeTab: React.FC<HomeProps> = ({navigation}) => {
               data={filteredData}
               keyExtractor={item => item.room_id}
               renderItem={({item, index}) => (
-                <Item dataItem={item} index={index} searchText={searchQuery} />
+                <HomeItem
+                  dataItem={item}
+                  index={index}
+                  searchText={searchQuery}
+                  navigation={navigation}
+                  user={user}
+                />
               )}
             />
           )}
