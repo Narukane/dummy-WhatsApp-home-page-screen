@@ -1,12 +1,77 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {defaultStyle} from '../../styles/defaultStyles';
+import React, {useEffect, useState} from 'react';
+import {
+  SafeAreaView,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
+import {StatusListStyle} from '../../styles/StatusListStyles';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import StatusListItem from '../../components/StatusListItem';
 
-const StatusList: React.FC = () => {
+interface StatuProps {
+  navigation: NavigationProp<ParamListBase>;
+}
+
+const StatusList: React.FC<StatuProps> = ({navigation}) => {
+  const [data, setData] = useState<any[] | null>(null);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
+    const res = [
+      {
+        id: '1',
+        name: 'john doe',
+        status: {
+          text: 'Hi its me',
+        },
+        timestamp: '2023-08-05T10:46:00.000Z',
+      },
+      {
+        id: '2',
+        name: 'john doe 2',
+        status: {
+          text: 'Hi its me',
+        },
+        timestamp: '2023-08-05T10:46:00.000Z',
+      },
+    ];
+
+    setData(res);
+    setLoading(false);
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadData();
+    setRefreshing(false);
+  };
+
   return (
-    <View style={defaultStyle.container}>
-      <Text>Status Screen</Text>
-    </View>
+    <SafeAreaView style={StatusListStyle.container}>
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          style={StatusListStyle.loadingIndicator}
+        />
+      ) : (
+        <FlatList
+          data={data}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <StatusListItem dataItem={item} navigation={navigation} />
+          )}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      )}
+    </SafeAreaView>
   );
 };
 

@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeTab from '../navigation/HomeTab';
 import ChatRoom from './chat/chatRoom';
 import PersonalDetail from './chat/detailPersonal';
+import StatusDetail from './status/statusDetail';
 import GroupDetail from './chat/detailGroup';
 import {stackOptions} from '../options/stackOptions';
 
@@ -27,6 +28,11 @@ const MainNavigator: React.FC = () => {
         <Stack.Screen
           name="Group"
           component={GroupDetail}
+          options={stackOptions}
+        />
+        <Stack.Screen
+          name="StatusDetail"
+          component={StatusDetail}
           options={stackOptions}
         />
       </Stack.Navigator>
